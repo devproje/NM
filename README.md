@@ -72,3 +72,14 @@ java -jar Lavalink.jar
 ```sh
 npm start
 ```
+
+### Running with docker
+1.  Build image
+```sh
+docker compose build
+```
+2.  Deploy image
+```sh
+docker compose up -d
+```
+
