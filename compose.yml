@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  lavalink:
+    container_name: "nm_lavalink"
+    build:
+      context: ./bin
+      dockerfile: ./Dockerfile
+    networks:
+      - "nm"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+    restart: always
+
+  nm-bot:
+    container_name: "nm_bot"
+    build: ./
+    dockerfile: ./Dockerfile
+    networks:
+      - "nm"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+    restart: always
+
+networks:
+  nm: {}
