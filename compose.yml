@@ -4,8 +4,8 @@ services:
   lavalink:
     container_name: "nm_lavalink"
     build:
-      context: ./bin
-      dockerfile: ./Dockerfile
+      context: .
+      dockerfile: ./Dockerfile_Lavalink
     networks:
       - "nm"
     volumes:
