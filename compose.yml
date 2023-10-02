@@ -14,8 +14,9 @@ services:
 
   nm-bot:
     container_name: "nm_bot"
-    build: ./
-    dockerfile: ./Dockerfile
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     networks:
       - "nm"
     volumes:
