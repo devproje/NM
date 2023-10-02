@@ -20,7 +20,7 @@
 1.  Clone the repository
 
 ```sh
-git clone https://github.com/NY0510/NM.git
+git clone https://github.com/devproje/NM.git
 ```
 
 2.  Install dependencies
