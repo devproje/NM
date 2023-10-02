@@ -13,7 +13,7 @@ module.exports = {
 		const { channel } = message.member.voice;
 
 		if (!channel)
-			return message.reply({
+			return await message.reply({
 				embeds: [new EmbedBuilder().setDescription(`${process.env.EMOJI_X} **음성 채널에 먼저 접속하세요**`).setColor(process.env.COLOR_ERROR)],
 			});
 
@@ -22,12 +22,12 @@ module.exports = {
 			voiceChannel: channel.id,
 			textChannel: message.channel.id,
 			selfDeafen: true,
-			volume: 70,
+			volume: 10,
 		});
 		const bindChannel = client.channels.cache.get(player.textChannel);
 
 		if (channel.id !== player.voiceChannel)
-			return message.reply({
+			return await message.reply({
 				embeds: [new EmbedBuilder().setDescription(`${process.env.EMOJI_X} **저와 같은 음성채널에 접속해 있지 않아요**`).setColor(process.env.COLOR_ERROR)],
 			});
 
@@ -42,12 +42,12 @@ module.exports = {
 		}
 
 		if (!query)
-			return message.reply({
+			return await message.reply({
 				embeds: [new EmbedBuilder().setDescription(`${process.env.EMOJI_X} **검색어를 입력해주세요**`).setColor(process.env.COLOR_ERROR)],
 			});
 
 		// if (!urlRegex(query))
-		// 	return message.reply({ embeds: [new EmbedBuilder().setDescription(`${process.env.EMOJI_X} **지원되는 URL이 아니에요**`).setColor(process.env.COLOR_ERROR)] });
+		// 	return await message.reply({ embeds: [new EmbedBuilder().setDescription(`${process.env.EMOJI_X} **지원되는 URL이 아니에요**`).setColor(process.env.COLOR_ERROR)] });
 
 		let res;
 
@@ -83,7 +83,7 @@ module.exports = {
 				player.queue.add(res.tracks, message.author);
 
 				if (!player.playing && !player.paused && !player.queue.size) player.play();
-				title = textLengthOverCut(res.tracks[0].title.replaceAll("[", "［").replaceAll("]", "］"), 30, " ...");
+				title = textLengthOverCut(res.tracks[0].title.replaceAll("[", "\u200B[\u200B").replaceAll("]", "\u200B]\u200B"), 30, " ...");
 				e = new EmbedBuilder()
 					.setTitle(`💿 음악을 대기열에 추가했어요`)
 					.setDescription(`**[${title}](${res.tracks[0].uri})**`)
@@ -115,8 +115,8 @@ module.exports = {
 
 				if (!player.playing && !player.paused && player.queue.totalSize === res.tracks.length) player.play();
 
-				title = textLengthOverCut(res.playlist.name.replaceAll("[", "［").replaceAll("]", "］"), 30, " ...");
-				return message.reply({
+				title = textLengthOverCut(res.playlist.name.replaceAll("[", "\u200B[\u200B").replaceAll("]", "\u200B]\u200B"), 30, " ...");
+				return await message.reply({
 					embeds: [
 						new EmbedBuilder()
 							.setTitle(`📀 재생목록을 대기열에 추가했어요`)
@@ -143,7 +143,7 @@ module.exports = {
 				const track = res.tracks[0];
 				player.queue.add(track, message.author);
 
-				title = textLengthOverCut(res.tracks[0].title.replaceAll("[", "［").replaceAll("]", "］"), 30, " ...");
+				title = textLengthOverCut(res.tracks[0].title.replaceAll("[", "\u200B[\u200B").replaceAll("]", "\u200B]\u200B"), 30, " ...");
 				e = new EmbedBuilder()
 					.setTitle(`💿 음악을 대기열에 추가했어요`)
 					.setDescription(`**[${title}](${res.tracks[0].uri})**`)

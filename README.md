@@ -26,7 +26,7 @@ git clone https://github.com/NY0510/NM.git
 2.  Install dependencies
 
 ```sh
-npm install
+pnpm install
 ```
 
 ### Configuration

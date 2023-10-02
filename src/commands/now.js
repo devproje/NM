@@ -12,27 +12,27 @@ module.exports = {
 		const player = client.manager.get(message.guild.id);
 
 		if (!player || !player?.queue?.current?.title)
-			return message.reply({
+			return await message.reply({
 				embeds: [new EmbedBuilder().setDescription(`${process.env.EMOJI_X} **이 서버에서 재생중인 음악이 없어요**`).setColor(process.env.COLOR_ERROR)],
 			});
 
 		const { channel } = message.member.voice;
 
 		// if (!channel)
-		// 	return message.reply({
+		// 	return await message.reply({
 		// 		embeds: [new EmbedBuilder().setDescription(`${process.env.EMOJI_X} **음성 채널에 먼저 접속하세요**`).setColor(process.env.COLOR_ERROR)],
 		//
 		// 	});
 
-		title = textLengthOverCut(player.queue.current.title.replaceAll("[", "［").replaceAll("]", "］"), 30, " ...");
-		return message.reply({
+		title = textLengthOverCut(player.queue.current.title.replaceAll("[", "\u200B[\u200B").replaceAll("]", "\u200B]\u200B"), 30, " ...");
+		return await message.reply({
 			embeds: [
 				new EmbedBuilder()
 					.setTitle(`🎵 현재 재생중인 음악`)
 					.setThumbnail(`https://img.youtube.com/vi/${player.queue.current.identifier}/mqdefault.jpg`)
 					.setDescription(
 						`${player.playing ? "▶️" : "⏸️"} **[${title}](${player.queue.current.uri})**\n\n${progressBar(player)}\n**${timeFormat(player.position)} / ${timeFormat(
-							player.duration
+							player.queue.current.duration
 						)}**`
 					)
 					.addFields(

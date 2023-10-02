@@ -10,7 +10,7 @@ module.exports = {
 		const player = client.manager.get(message.guild.id);
 
 		if (!player)
-			return message.reply({
+			return await message.reply({
 				embeds: [new EmbedBuilder().setDescription(`${process.env.EMOJI_X} **이 서버에서 재생중인 음악이 없어요**`).setColor(process.env.COLOR_ERROR)],
 			});
 
@@ -21,16 +21,22 @@ module.exports = {
 		const restTracks = queue.length - tracks.length;
 
 		if (queue.current) {
-			title = textLengthOverCut(queue.current.title.replaceAll("[", "［").replaceAll("]", "］"), 30, " ...");
+			title = textLengthOverCut(queue.current.title.replaceAll("[", "\u200B[\u200B").replaceAll("]", "\u200B]\u200B"), 30, " ...");
 
 			e.setDescription(
 				`**💿 [${title}](${queue.current.uri})**\n\n${
-					tracks.map((track, i) => `**${i + 1}. [${textLengthOverCut(track.title.replaceAll("[", "［").replaceAll("]", "］"), 30, " ...")}](${track.uri})**`).join("\n") +
-					(restTracks > 0 ? `\n\n**+${restTracks}곡**` : "")
+					tracks
+						.map(
+							(track, i) =>
+								`**\u200B${i + 1}. [${textLengthOverCut(track.title.replaceAll("[", "\u200B[\u200B").replaceAll("]", "\u200B]\u200B"), 30, " ...")}](${
+									track.uri
+								})**`
+						)
+						.join("\n") + (restTracks > 0 ? `\n\n**+${restTracks}곡**` : "")
 				}`
 			);
 		}
 
-		return message.reply({ embeds: [e] });
+		return await message.reply({ embeds: [e] });
 	},
 };
