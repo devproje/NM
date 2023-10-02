@@ -3,14 +3,19 @@ version: "3.9"
 services:
   lavalink:
     container_name: "nm_lavalink"
-    build:
-      context: .
-      dockerfile: ./Dockerfile_Lavalink
+    image: "ghcr.io/lavalink-devs/lavalink:3-alpine"
+    restart: always
+    environment:
+      _JAVA_OPTIONS: -Xmx4G
+      SERVER_PORT: 2333
+      LAVALINK_SERVER_PASSWORD: asdf
+    volumes:
+      - "./ll_plugins/:/opt/Lavalink/plugins"
+      - "/etc/localtime:/etc/localtime:ro"
     networks:
       - "nm"
-    volumes:
-      - "/etc/localtime:/etc/localtime:ro"
-    restart: always
+    expose:
+      - 2333
 
   nm-bot:
     container_name: "nm_bot"
