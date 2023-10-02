@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   lavalink:
-    container_name: "nm_lavalink"
+    container_name: "nmlavalink"
     image: "ghcr.io/lavalink-devs/lavalink:3-alpine"
     restart: always
     environment:
@@ -16,9 +16,11 @@ services:
       - "nm"
     expose:
       - 2333
+    ports:
+      - "2333:2333"
 
   nm-bot:
-    container_name: "nm_bot"
+    container_name: "nmbot"
     build:
       context: .
       dockerfile: ./Dockerfile
